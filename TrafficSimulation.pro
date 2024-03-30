@@ -12,15 +12,19 @@ SOURCES += \
     cell.cpp \
     main.cpp \
     mainwindow.cpp \
+    pedestriancrossing.cpp \
     qroadsmap.cpp \
-    settingswidget.cpp
+    settingswidget.cpp \
+    trafficlight.cpp
 
 HEADERS += \
     cell.h \
     direction.h \
     mainwindow.h \
+    pedestriancrossing.h \
     qroadsmap.h \
-    settingswidget.h
+    settingswidget.h \
+    trafficlight.h
 
 FORMS += \
     mainwindow.ui
