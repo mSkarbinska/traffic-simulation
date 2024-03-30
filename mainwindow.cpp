@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "qroadsmap.h"
+
 #include <QLabel>
 #include <QPushButton>
 #include <QSplitter>
@@ -14,9 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     QRoadsMap *mapView = new QRoadsMap(this);
 
-    mapView->setCellType(0, 0, Intersection);
-    mapView->setCellType(1, 1, StraightRoad);
-    mapView->setCellType(2, 2, Turn);
+    mapView->setCellType(0, 0, INTERSECTION);
+    mapView->setCellType(1, 1, STRAIGHT_ROAD);
+    mapView->setCellType(2, 2, TURN);
 
     QWidget *settingsWidget = new QWidget(this);
     settingsWidget->setFixedWidth(250);

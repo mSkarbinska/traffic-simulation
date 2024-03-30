@@ -1,4 +1,6 @@
 #include "qroadsmap.h"
+#include "cell.h"
+
 #include <QPainter>
 
 QRoadsMap::QRoadsMap(QWidget *parent) : QWidget(parent)
@@ -8,7 +10,7 @@ QRoadsMap::QRoadsMap(QWidget *parent) : QWidget(parent)
     cellSize = 50;
 
     // Initialize the map grid with empty cells
-    mapGrid.resize(rows, std::vector<CellType>(cols, Empty));
+    mapGrid.resize(rows, std::vector<CellType>(cols, GRASS));
 }
 
 void QRoadsMap::paintEvent(QPaintEvent *event)
@@ -20,13 +22,13 @@ void QRoadsMap::paintEvent(QPaintEvent *event)
         for (int col = 0; col < cols; ++col) {
             QRect cellRect(col * cellSize, row * cellSize, cellSize, cellSize);
             switch (mapGrid[row][col]) {
-            case Intersection:
+            case INTERSECTION:
                 painter.fillRect(cellRect, Qt::gray);
                 break;
-            case StraightRoad:
+            case STRAIGHT_ROAD:
                 painter.fillRect(cellRect, Qt::darkGray);
                 break;
-            case Turn:
+            case TURN:
                 painter.fillRect(cellRect, Qt::lightGray);
                 break;
             default:

@@ -4,12 +4,7 @@
 #include <QWidget>
 #include <vector>
 
-enum CellType {
-    Empty,
-    Intersection,
-    StraightRoad,
-    Turn
-};
+#include "cell.h"
 
 class QRoadsMap : public QWidget
 {
@@ -25,7 +20,7 @@ protected:
 private:
     int rows;
     int cols;
-    int cellSize; // Size of each cell in pixels
+    int cellSize;
     std::vector<std::vector<CellType>> mapGrid;
 };
 
