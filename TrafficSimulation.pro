@@ -9,22 +9,36 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    car.cpp \
     cell.cpp \
+    coords.cpp \
     main.cpp \
     mainwindow.cpp \
     pedestriancrossing.cpp \
     qroadsmap.cpp \
+    roadsmap.cpp \
     settingswidget.cpp \
-    trafficlight.cpp
+    simulation.cpp \
+    simulationconfig.cpp \
+    trafficlight.cpp \
+    vehicle.cpp \
+    vehicleswarm.cpp
 
 HEADERS += \
+    car.h \
     cell.h \
+    coords.h \
     direction.h \
     mainwindow.h \
     pedestriancrossing.h \
     qroadsmap.h \
+    roadsmap.h \
     settingswidget.h \
-    trafficlight.h
+    simulation.h \
+    simulationconfig.h \
+    trafficlight.h \
+    vehicle.h \
+    vehicleswarm.h
 
 FORMS += \
     mainwindow.ui

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "simulation.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -17,7 +19,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void setSimulation(Simulation *newSimulation) {
+        simulation = newSimulation;
+    };
 private:
     Ui::MainWindow *ui;
+    Simulation *simulation;
 };
 #endif // MAINWINDOW_H
