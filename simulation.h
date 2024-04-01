@@ -12,9 +12,11 @@ public:
     void start();
     void stop();
 
-private:
+protected:
     RoadsMap map;
     VehicleSwarm vehicleSwarm;
+
+private:
     SimulationConfig config;
 };
 

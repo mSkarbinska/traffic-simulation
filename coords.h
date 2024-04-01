@@ -7,6 +7,7 @@ private:
     int col;
 
 public:
+    Coords();
     Coords(int row, int col) : row(row), col(col) {}
 
     int getRow() const { return row; }
@@ -18,6 +19,10 @@ public:
 
     bool operator!=(const Coords& other) const {
         return !(*this == other);
+    }
+
+    bool operator<(const Coords& other) const {
+        return row < other.row || (row == other.row && col < other.col);
     }
 };
 

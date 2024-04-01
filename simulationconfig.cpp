@@ -1,3 +1,7 @@
 #include "simulationconfig.h"
 
-SimulationConfig::SimulationConfig() {}
+SimulationConfig::SimulationConfig() {
+    pedestrians = false;
+    numberOfCars = 5;
+    trafficLights = false;
+}

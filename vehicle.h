@@ -7,7 +7,8 @@
 class Vehicle {
 public:
     virtual ~Vehicle() {}
-
+    Vehicle();
+    Vehicle(Coords coords);
     virtual void move() = 0;
 
 protected:

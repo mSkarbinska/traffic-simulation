@@ -1,32 +1,54 @@
 #include "roadsmap.h"
 #include "cell.h"
+#include "direction.h"
 
+RoadsMap::RoadsMap()
+    : width(20), height(10) {
+    generateCells();
+}
 
-RoadsMap::RoadsMap(int width, int height, const std::vector<std::vector<CellType>>& cellTypes)
-    : width(width), height(height), cells(height, std::vector<std::shared_ptr<Cell>>(width)) {
-    for (int row = 0; row < height; ++row) {
-        for (int col = 0; col < width; ++col) {
-            switch (cellTypes[row][col]) {
-            case INTERSECTION:
-                cells[row][col] = std::make_shared<IntersectionCell>();
-                break;
-            case STRAIGHT_ROAD:
-                cells[row][col] = std::make_shared<StraightRoadCell>();
-                break;
-            case TURN:
-                cells[row][col] = std::make_shared<TurnCell>();
-                break;
-            case GRASS:
-                cells[row][col] = std::make_shared<GrassCell>();
-                break;
-            }
+void RoadsMap::generateCells() {
+    cells = std::vector<std::vector<std::shared_ptr<Cell>>>(this->getHeight(), std::vector<std::shared_ptr<Cell>>(this->getWidth()));
+
+    for (int row = 0; row < this->getHeight(); ++row) {
+        for (int col = 0; col < this->getWidth(); ++col) {
+            std::shared_ptr<Cell> grassCell = std::make_shared<GrassCell>();
+            cells[row][col] = grassCell;
         }
     }
-}
+
+    for (int col = 0; col < this->getWidth(); ++col) {
+        // Create road cell for row 4
+        std::shared_ptr<Cell> roadCellRow4 = std::make_shared<StraightRoadCell>();
+        cells[4][col] = roadCellRow4;
+
+        // Create road cell for row 7
+        std::shared_ptr<Cell> roadCellRow7 = std::make_shared<StraightRoadCell>();
+        cells[7][col] = roadCellRow7;
+    }
+
+    std::shared_ptr<IntersectionCell> intersection = std::make_shared<IntersectionCell>();
+    intersection->addTrafficLight(NORTH);
+    cells[4][7] = intersection;
+};
 
 std::shared_ptr<Cell> RoadsMap::getCellAt(int row, int col) const {
     return cells[row][col];
 }
+
+CellType RoadsMap::getCellTypeAt(Coords coords) const {
+    if (coords.getRow() < 0 || coords.getRow() >= height || coords.getCol() < 0 || coords.getCol() >= width) {
+        return UNKNOWN_CELL;
+    }
+
+    std::shared_ptr<Cell> cell = getCellAt(coords.getRow(), coords.getCol());
+
+    if (cell) {
+        return cell->getType();
+    } else {
+        return UNKNOWN_CELL;
+    }
+};
 
 std::vector<std::shared_ptr<Cell>> RoadsMap::getAdjacentCells(int row, int col) const {
     std::vector<std::shared_ptr<Cell>> adjacentCells;

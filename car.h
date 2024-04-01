@@ -5,7 +5,12 @@
 
 class Car : public Vehicle {
 public:
-        // Implement methods specific to Car if needed
+    Car(): Vehicle() {};
+    virtual ~Car() {};
+    Car(Coords coords): Vehicle(coords) {};
+    virtual void move() override {
+        // Implement car movement here
+    }
 };
 
 #endif // CAR_H

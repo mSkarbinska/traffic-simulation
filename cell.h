@@ -17,6 +17,7 @@ enum CellType {
     INTERSECTION,
     TURN,
     GRASS,
+    UNKNOWN_CELL,
 };
 
 class Cell {
@@ -26,9 +27,9 @@ public:
     CellType getType() const {
         return type;
     };
-    std::set<Direction> getRoadDirections() const {
-        return roadDirections;
-    };
+    // std::set<Direction> getRoadDirections() const {
+    //     return roadDirections;
+    // };
 
     void setType(CellType newType) {
         type = newType;
@@ -38,10 +39,10 @@ public:
 
 protected:
     Cell(CellType cellType) : type(cellType) {}
-    std::set<Direction> roadDirections;
-    void setRoadDirections(const std::set<Direction>& newDirections) {
-        roadDirections = newDirections;
-    };
+    // std::set<Direction> roadDirections;
+    // void setRoadDirections(const std::set<Direction>& newDirections) {
+    //     roadDirections = newDirections;
+    // };
 private:
     CellType type;
 };
@@ -56,8 +57,8 @@ class IntersectionCell : public Cell {
 public:
     IntersectionCell() : Cell(INTERSECTION) {};
     void draw(QPainter& painter, const QRect& rect) const override;
-    void addTrafficLight(Direction direction, const TrafficLight& trafficLight) {
-        trafficLights[direction] = trafficLight;
+    void addTrafficLight(Direction direction) {
+        trafficLights[direction] = TrafficLight();
     }
 private:
     std::map<Direction, TrafficLight> trafficLights;
@@ -70,7 +71,7 @@ public:
     void setCrossing(const PedestrianCrossing& newCrossing) {
         crossing = newCrossing;
     }
-    void setRoadDirections(bool horizontal);
+    // void setRoadDirections(bool horizontal);
 private:
     std::optional<PedestrianCrossing> crossing;
 };

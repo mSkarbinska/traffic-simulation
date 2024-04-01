@@ -1,6 +1,12 @@
 #include "simulation.h"
+#include "roadsmap.h"
+#include "vehicleswarm.h"
 
 #include <thread>
+
+Simulation::Simulation(const SimulationConfig& config): map(RoadsMap()), vehicleSwarm(VehicleSwarm(config.getNumberOfCars(), map)) {
+
+};
 
 void Simulation::start() {
     while (true) {
