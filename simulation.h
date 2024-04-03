@@ -11,12 +11,13 @@ public:
 
     void start();
     void stop();
+    void updateSimulation();
 
-protected:
-    RoadsMap map;
-    VehicleSwarm vehicleSwarm;
+    RoadsMap& getMap() { return map; }
 
 private:
+    RoadsMap map;
+    VehicleSwarm vehicleSwarm;
     SimulationConfig config;
 };
 

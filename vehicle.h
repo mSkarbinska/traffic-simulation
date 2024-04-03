@@ -10,10 +10,14 @@ public:
     Vehicle();
     Vehicle(Coords coords);
     virtual void move() = 0;
-
-protected:
+    Coords getCoords() const { return currPosition; }
+    Direction getDirection() const { return direction; }
+    void setCoords(const Coords& coords) { currPosition = coords; }
+    void setDirection(Direction dir) { direction = dir; }
+private:
     Coords currPosition;
     Direction direction;
 };
+
 
 #endif // VEHICLE_H

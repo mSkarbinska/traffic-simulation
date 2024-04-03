@@ -6,19 +6,19 @@
 #include <QPushButton>
 #include <QSplitter>
 #include <QVBoxLayout>
+#include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(Simulation* sim, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    QRoadsMap *mapView = new QRoadsMap(this);
+    setSimulation(sim);
+    RoadsMap& map = simulation->getMap();
+    QRoadsMap *mapView = new QRoadsMap(map, this);
 
-    mapView->setCellType(0, 0, INTERSECTION);
-    mapView->setCellType(1, 1, STRAIGHT_ROAD);
-    mapView->setCellType(2, 2, TURN);
-
+    // move to settingswidget
     QWidget *settingsWidget = new QWidget(this);
     settingsWidget->setFixedWidth(250);
     QVBoxLayout *settingsLayout = new QVBoxLayout(settingsWidget);
@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     QSplitter *splitter = new QSplitter(Qt::Horizontal);
     splitter->addWidget(mapView);
     splitter->addWidget(settingsWidget);
+    // end
 
     mapView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     settingsWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);

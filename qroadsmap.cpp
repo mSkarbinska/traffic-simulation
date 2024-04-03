@@ -3,14 +3,18 @@
 
 #include <QPainter>
 
-QRoadsMap::QRoadsMap(QWidget *parent) : QWidget(parent)
+QRoadsMap::QRoadsMap(RoadsMap &map, QWidget *parent) : QWidget(parent), map(map)
 {
-    rows = 20;
-    cols = 10;
-    cellSize = 50;
+    mapGrid.resize(map.getHeight(), std::vector<CellType>(map.getWidth(), GRASS));
 
-    // Initialize the map grid with empty cells
-    mapGrid.resize(rows, std::vector<CellType>(cols, GRASS));
+    for (int row = 0; row < map.getHeight(); ++row) {
+        for (int col = 0; col < map.getWidth(); ++col) {
+            Coords coords = Coords(row, col);
+            CellType type = map.getCellTypeAt(coords);
+
+            setCellType(row, col, type);
+        }
+    }
 }
 
 void QRoadsMap::paintEvent(QPaintEvent *event)
@@ -18,8 +22,8 @@ void QRoadsMap::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
     // Iterate over the map grid and draw rectangles based on the cell type
-    for (int row = 0; row < rows; ++row) {
-        for (int col = 0; col < cols; ++col) {
+    for (int row = 0; row < map.getHeight(); ++row) {
+        for (int col = 0; col < map.getWidth(); ++col) {
             QRect cellRect(col * cellSize, row * cellSize, cellSize, cellSize);
             switch (mapGrid[row][col]) {
             case INTERSECTION:
@@ -38,11 +42,13 @@ void QRoadsMap::paintEvent(QPaintEvent *event)
             painter.drawRect(cellRect); // Draw border around each cell
         }
     }
+
+    // paint cars
 }
 
 void QRoadsMap::setCellType(int row, int col, CellType type)
 {
-    if (row >= 0 && row < rows && col >= 0 && col < cols) {
+    if (row >= 0 && row < map.getHeight() && col >= 0 && col < map.getWidth()) {
         mapGrid[row][col] = type;
         update();
     }

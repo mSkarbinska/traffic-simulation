@@ -2,8 +2,7 @@
 #include "cell.h"
 #include "direction.h"
 
-RoadsMap::RoadsMap()
-    : width(20), height(10) {
+RoadsMap::RoadsMap() {
     generateCells();
 }
 
@@ -17,19 +16,19 @@ void RoadsMap::generateCells() {
         }
     }
 
-    for (int col = 0; col < this->getWidth(); ++col) {
-        // Create road cell for row 4
+    for (int col = 0; col < this->getHeight(); ++col) {
         std::shared_ptr<Cell> roadCellRow4 = std::make_shared<StraightRoadCell>();
-        cells[4][col] = roadCellRow4;
+        cells[col][4] = roadCellRow4;
+    }
 
-        // Create road cell for row 7
+    for (int col = 0; col < this->getWidth(); ++col) {
         std::shared_ptr<Cell> roadCellRow7 = std::make_shared<StraightRoadCell>();
         cells[7][col] = roadCellRow7;
     }
 
     std::shared_ptr<IntersectionCell> intersection = std::make_shared<IntersectionCell>();
     intersection->addTrafficLight(NORTH);
-    cells[4][7] = intersection;
+    cells[7][4] = intersection;
 };
 
 std::shared_ptr<Cell> RoadsMap::getCellAt(int row, int col) const {

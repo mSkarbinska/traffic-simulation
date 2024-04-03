@@ -10,14 +10,15 @@ public:
     std::shared_ptr<Cell> getCellAt(int row, int col) const;
     std::vector<std::shared_ptr<Cell>> getAdjacentCells(int row, int col) const;
 
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
+    int getWidth() { return width; }
+    int getHeight() { return height; }
     CellType getCellTypeAt(Coords coords) const;
     void generateCells();
+    auto getCells() const { return cells; }
 
 private:
-    int width;
-    int height;
+    int width {20};
+    int height {10};
     std::vector<std::vector<std::shared_ptr<Cell>>> cells;
 };
 

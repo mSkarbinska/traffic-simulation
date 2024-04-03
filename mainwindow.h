@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(Simulation *simulation, QWidget *parent = nullptr);
     ~MainWindow();
 
     void setSimulation(Simulation *newSimulation) {

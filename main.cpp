@@ -4,17 +4,17 @@
 #include "simulation.h"
 
 #include <QApplication>
+#include <QThread>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
 
     SimulationConfig config;
     Simulation simulation(config);
-
-    w.setSimulation(&simulation);
+    MainWindow w(&simulation);
 
     w.show();
+
     return a.exec();
 }

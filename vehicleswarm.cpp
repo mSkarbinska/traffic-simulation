@@ -1,8 +1,9 @@
 #include "vehicleswarm.h"
 #include "vehicle.h"
 #include "car.h"
+#include <QDebug>
 
-VehicleSwarm::VehicleSwarm(int numberOfCars, const RoadsMap& map) : map(map) {
+VehicleSwarm::VehicleSwarm(int numberOfCars, RoadsMap& map) : map(map) {
     srand(time(nullptr));
 
     for (int i = 0; i < numberOfCars; ++i) {
@@ -16,9 +17,13 @@ VehicleSwarm::VehicleSwarm(int numberOfCars, const RoadsMap& map) : map(map) {
 
         vehiclesPositions[coords] = newCar;
     }
+    qDebug() << "Cars and their coordinates:";
+    for (const auto& vehicle : vehicles) {
+        qDebug() << "Car at (" << vehicle->getCoords().getRow() << ", " << vehicle->getCoords().getCol() << ")";
+    }
 }
 
-Coords VehicleSwarm::getRandomStraightRoadCoords() const {
+Coords VehicleSwarm::getRandomStraightRoadCoords() {
     int mapHeight = map.getHeight();
     int mapWidth = map.getWidth();
     while (true) {

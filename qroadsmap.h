@@ -5,12 +5,13 @@
 #include <vector>
 
 #include "cell.h"
+#include "roadsmap.h"
 
 class QRoadsMap : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QRoadsMap(QWidget *parent = nullptr);
+    explicit QRoadsMap(RoadsMap &map, QWidget *parent = nullptr);
 
     void setCellType(int row, int col, CellType type);
 
@@ -18,9 +19,8 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    int rows;
-    int cols;
-    int cellSize;
+    int cellSize {50};
+    RoadsMap &map;
     std::vector<std::vector<CellType>> mapGrid;
 };
 

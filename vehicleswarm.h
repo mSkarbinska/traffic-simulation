@@ -14,10 +14,10 @@ private:
     RoadsMap map;
 
 public:
-    VehicleSwarm(int numberOfCars, const RoadsMap& map);
+    VehicleSwarm(int numberOfCars, RoadsMap& map);
 
     Vehicle* getVehicleAtCoords(const Coords& coords);
-    Coords getRandomStraightRoadCoords() const;
+    Coords getRandomStraightRoadCoords();
     void move();
 };
 

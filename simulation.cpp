@@ -2,26 +2,26 @@
 #include "roadsmap.h"
 #include "vehicleswarm.h"
 
-#include <thread>
-
 Simulation::Simulation(const SimulationConfig& config): map(RoadsMap()), vehicleSwarm(VehicleSwarm(config.getNumberOfCars(), map)) {
-
+    // QObject::connect(&timer, &QTimer::timeout, this, &Simulation::updateSimulation);
 };
 
-void Simulation::start() {
-    while (true) {
-        // Move vehicles in the swarm
-        vehicleSwarm.move();
+// void Simulation::start() {
+//     timer.start(100);
+// }
 
-        // Check for collisions or other events
+// void Simulation::stop() {
+//     timer.stop();
+// }
 
-        // Update display or perform other actions
+// Simulation::~Simulation() {
+//     stop();
+// }
 
-        // Sleep for a short duration to control simulation speed
-        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Adjust time interval as needed
-    }
-}
+void Simulation::updateSimulation() {
+    vehicleSwarm.move();
 
-void Simulation::stop() {
-    // Stop the simulation
+    // Check for collisions or other events
+
+    // Update display or perform other actions
 }
