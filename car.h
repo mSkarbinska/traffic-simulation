@@ -7,7 +7,7 @@ class Car : public Vehicle {
 public:
     Car(): Vehicle() {};
     virtual ~Car() {};
-    Car(Coords coords): Vehicle(coords) {};
+    Car(Coords coords, Direction dir): Vehicle(coords, dir) {};
     virtual void move() override {
         // Implement car movement here
     }

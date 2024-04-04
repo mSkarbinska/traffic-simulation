@@ -19,6 +19,7 @@ public:
     Vehicle* getVehicleAtCoords(const Coords& coords);
     Coords getRandomStraightRoadCoords();
     void move();
+    std::list<Vehicle*> getVehicles() { return vehicles; }
 };
 
 #endif // VEHICLESWARM_H

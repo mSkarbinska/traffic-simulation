@@ -6,12 +6,14 @@
 
 #include "cell.h"
 #include "roadsmap.h"
+#include "simulation.h"
+#include "vehicleswarm.h"
 
 class QRoadsMap : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QRoadsMap(RoadsMap &map, QWidget *parent = nullptr);
+    explicit QRoadsMap(Simulation& sim, QWidget *parent = nullptr);
 
     void setCellType(int row, int col, CellType type);
 
@@ -21,6 +23,7 @@ protected:
 private:
     int cellSize {50};
     RoadsMap &map;
+    VehicleSwarm vSwarm;
     std::vector<std::vector<CellType>> mapGrid;
 };
 

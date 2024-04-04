@@ -8,9 +8,9 @@ class Vehicle {
 public:
     virtual ~Vehicle() {}
     Vehicle();
-    Vehicle(Coords coords);
+    Vehicle(Coords coords, Direction dir);
     virtual void move() = 0;
-    Coords getCoords() const { return currPosition; }
+    Coords getPosition() const { return currPosition; }
     Direction getDirection() const { return direction; }
     void setCoords(const Coords& coords) { currPosition = coords; }
     void setDirection(Direction dir) { direction = dir; }

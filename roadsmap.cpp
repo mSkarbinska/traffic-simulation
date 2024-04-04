@@ -16,17 +16,20 @@ void RoadsMap::generateCells() {
         }
     }
 
+    std::set<Direction> firstRoadDirections = {NORTH, SOUTH};
     for (int col = 0; col < this->getHeight(); ++col) {
-        std::shared_ptr<Cell> roadCellRow4 = std::make_shared<StraightRoadCell>();
-        cells[col][4] = roadCellRow4;
+        std::shared_ptr<Cell> roadCellCol4 = std::make_shared<StraightRoadCell>(firstRoadDirections);
+        cells[col][4] = roadCellCol4;
     }
 
+    std::set<Direction> secondRoadDirections = {EAST, WEST};
     for (int col = 0; col < this->getWidth(); ++col) {
-        std::shared_ptr<Cell> roadCellRow7 = std::make_shared<StraightRoadCell>();
+        std::shared_ptr<Cell> roadCellRow7 = std::make_shared<StraightRoadCell>(secondRoadDirections);
         cells[7][col] = roadCellRow7;
     }
 
-    std::shared_ptr<IntersectionCell> intersection = std::make_shared<IntersectionCell>();
+    std::set<Direction> intersectionDirections = {NORTH,EAST, SOUTH, WEST};
+    std::shared_ptr<IntersectionCell> intersection = std::make_shared<IntersectionCell>(intersectionDirections);
     intersection->addTrafficLight(NORTH);
     cells[7][4] = intersection;
 };

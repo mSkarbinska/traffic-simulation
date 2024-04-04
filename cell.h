@@ -27,9 +27,10 @@ public:
     CellType getType() const {
         return type;
     };
-    // std::set<Direction> getRoadDirections() const {
-    //     return roadDirections;
-    // };
+
+    std::set<Direction> getRoadDirections() const {
+        return roadDirections;
+    };
 
     void setType(CellType newType) {
         type = newType;
@@ -38,13 +39,12 @@ public:
     virtual void draw(QPainter& painter, const QRect& rect) const = 0;
 
 protected:
+    Cell(CellType cellType, std::set<Direction> roadDirs) : type(cellType), roadDirections(roadDirs) {}
     Cell(CellType cellType) : type(cellType) {}
-    // std::set<Direction> roadDirections;
-    // void setRoadDirections(const std::set<Direction>& newDirections) {
-    //     roadDirections = newDirections;
-    // };
+
 private:
     CellType type;
+    std::set<Direction> roadDirections;
 };
 
 class GrassCell : public Cell {
@@ -55,7 +55,7 @@ public:
 
 class IntersectionCell : public Cell {
 public:
-    IntersectionCell() : Cell(INTERSECTION) {};
+    IntersectionCell(std::set<Direction> roadDirs) : Cell(INTERSECTION, roadDirs) {};
     void draw(QPainter& painter, const QRect& rect) const override;
     void addTrafficLight(Direction direction) {
         trafficLights[direction] = TrafficLight();
@@ -66,7 +66,7 @@ private:
 
 class StraightRoadCell : public Cell {
 public:
-    StraightRoadCell() : Cell(STRAIGHT_ROAD) {};
+    StraightRoadCell(std::set<Direction> roadDirs) : Cell(STRAIGHT_ROAD, roadDirs) {};
     void draw(QPainter& painter, const QRect& rect) const override;
     void setCrossing(const PedestrianCrossing& newCrossing) {
         crossing = newCrossing;
@@ -78,7 +78,7 @@ private:
 
 class TurnCell : public Cell {
 public:
-    TurnCell() : Cell(TURN) {};
+    TurnCell(std::set<Direction> roadDirs) : Cell(TURN, roadDirs) {};
     void draw(QPainter& painter, const QRect& rect) const override;
 };
 

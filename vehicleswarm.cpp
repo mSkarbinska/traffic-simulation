@@ -11,15 +11,21 @@ VehicleSwarm::VehicleSwarm(int numberOfCars, RoadsMap& map) : map(map) {
         do {
             coords = getRandomStraightRoadCoords();
         } while (vehiclesPositions.find(coords) != vehiclesPositions.end());
+        std::set<Direction> roadDirections = map.getCellAt(coords.getRow(), coords.getCol())->getRoadDirections();
 
-        Vehicle* newCar = new Car(coords);
+        // Choose a random direction from the available road directions
+        std::vector<Direction> directions(roadDirections.begin(), roadDirections.end());
+        Direction carDirection = directions[rand() % directions.size()];
+
+        // Create a new car with the chosen direction
+        Vehicle* newCar = new Car(coords, carDirection);
         vehicles.push_back(newCar);
 
         vehiclesPositions[coords] = newCar;
     }
     qDebug() << "Cars and their coordinates:";
     for (const auto& vehicle : vehicles) {
-        qDebug() << "Car at (" << vehicle->getCoords().getRow() << ", " << vehicle->getCoords().getCol() << ")";
+        qDebug() << "Car at (" << vehicle->getPosition().getRow() << ", " << vehicle->getPosition().getCol() << ")";
     }
 }
 

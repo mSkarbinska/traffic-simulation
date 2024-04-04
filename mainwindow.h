@@ -16,12 +16,12 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(Simulation *simulation, QWidget *parent = nullptr);
+    MainWindow(Simulation& simulation, QWidget *parent = nullptr);
     ~MainWindow();
 
-    void setSimulation(Simulation *newSimulation) {
-        simulation = newSimulation;
-    };
+    // void setSimulation(Simulation &newSimulation) {
+    //     simulation = newSimulation;
+    // };
 private:
     Ui::MainWindow *ui;
     Simulation *simulation;

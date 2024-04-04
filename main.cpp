@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "simulation.h"
 #include "simulationconfig.h"
-#include "simulation.h"
 
 #include <QApplication>
 #include <QThread>
@@ -12,8 +11,18 @@ int main(int argc, char *argv[])
 
     SimulationConfig config;
     Simulation simulation(config);
-    MainWindow w(&simulation);
+    MainWindow w(simulation);
+    QThread simulationThread;
 
+    simulation.moveToThread(&simulationThread);
+
+    // Connect signals to start and stop the simulation
+
+    QObject::connect(&simulationThread, &QThread::started, &simulation, &Simulation::start);
+    QObject::connect(&simulationThread, &QThread::finished, &simulationThread, &QObject::deleteLater);
+
+    // Start the simulation thread
+    simulationThread.start();
     w.show();
 
     return a.exec();

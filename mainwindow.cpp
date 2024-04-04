@@ -8,15 +8,14 @@
 #include <QVBoxLayout>
 #include <QDebug>
 
-MainWindow::MainWindow(Simulation* sim, QWidget *parent)
+MainWindow::MainWindow(Simulation& sim, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    setSimulation(sim);
-    RoadsMap& map = simulation->getMap();
-    QRoadsMap *mapView = new QRoadsMap(map, this);
+    // setSimulation(sim);
+    QRoadsMap *mapView = new QRoadsMap(sim, this);
 
     // move to settingswidget
     QWidget *settingsWidget = new QWidget(this);

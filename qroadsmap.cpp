@@ -1,9 +1,11 @@
 #include "qroadsmap.h"
 #include "cell.h"
+#include "vehicle.h"
+#include "vehicleswarm.h"
 
 #include <QPainter>
 
-QRoadsMap::QRoadsMap(RoadsMap &map, QWidget *parent) : QWidget(parent), map(map)
+QRoadsMap::QRoadsMap(Simulation& sim, QWidget *parent) : QWidget(parent), map(sim.getMap()), vSwarm(sim.getVehicleSwam())
 {
     mapGrid.resize(map.getHeight(), std::vector<CellType>(map.getWidth(), GRASS));
 
@@ -43,7 +45,29 @@ void QRoadsMap::paintEvent(QPaintEvent *event)
         }
     }
 
-    // paint cars
+    for (Vehicle* vehicle : vSwarm.getVehicles()) {
+        Coords vehicleCoords = vehicle->getPosition();
+
+        int carWidth, carHeight;
+        switch (vehicle->getDirection()) {
+        case WEST:
+        case EAST:
+            carWidth = cellSize / 2;
+            carHeight = cellSize / 3;
+            break;
+        case NORTH:
+        case SOUTH:
+            carWidth = cellSize / 3;
+            carHeight = cellSize / 2;
+            break;
+        }
+
+        int carX = vehicleCoords.getCol() * cellSize + (cellSize - carWidth) / 2;
+        int carY = vehicleCoords.getRow() * cellSize + (cellSize - carHeight) / 2;
+
+        QRect carRect(carX, carY, carWidth, carHeight);
+        painter.fillRect(carRect, Qt::blue);
+    }
 }
 
 void QRoadsMap::setCellType(int row, int col, CellType type)
